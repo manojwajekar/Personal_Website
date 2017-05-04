@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title> </title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery.dropotron.min.js"></script>
+        <script src="js/jquery.scrollgress.min.js"></script>
+        <script src="js/jquery.scrolly.min.js"></script>
+        <script src="js/jquery.slidertron.min.js"></script>
+        <script src="js/skel.min.js"></script>
+        <script src="js/skel-layers.min.js"></script>
+        <script src="js/init.js"></script>
+        <noscript>
+            <link rel="stylesheet" href="css/skel.css" />
+            <link rel="stylesheet" href="css/style.css" />
+            <link rel="stylesheet" href="css/style-xlarge.css" />
+        </noscript>
+        <!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+    </head>
+    <body>
+        <!-- Header -->
+        <header id="header" class="skel-layers-fixed">
+            <nav id="nav">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li>
+                        <a href="" class="icon fa-angle-down">Projects</a>
+                        <ul>
+                            <li><a href="Prosper_Project.html">Prosper Loan Model</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="Manoj_Wajekar_Resume_.pdf">Resume</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <section id="main" class="wrapper style1">
+            <header class="major">
+                <h2>Prediction Model for Prosper's Loan Deliquency</h2>
+                <p>By Manoj Wajekar, Sravya Boddu, Ian Glennon, James Shafer</p>
+            </header>
+            <div class="container">
+
+                <!-- Content -->
+                <section id="content">
+                    <a href="#" class="image fit"><img src="images/Prosper_logo.png" alt="" /></a>
+                    <h2>Introduction</h2>
+                    <p>Peer to Peer (P2P) lending is a growing trend in America; indeed, many people are seeking sound investment options beyond the traditional institutional banks and P2P platforms are stepping in.  And this is a good thing for many Americans, as a majority of them are unprepared for retirement.  In March of 2016, Google undertook a comprehensive Google Consumer Surveys study wherein the firm analyzed retirement savings across the country. The results were somber: one in three Americans have no retirement savings and 56% have less than $10,000.   A reason for this is a lack of safe investment options for the average, non-affluent citizen.  Fortunately, P2P lending provides an alternative investment option for these individuals.  However, P2P lending also entails risks.  The number one risk of P2P lending is borrower default.
+                        Recognizing this, our team set out to lower the risk of lenders in P2P transactions by providing them more accurate information to select reliable borrowers.  Specifically, we examined the P2P lending site called Prosper.  Prosper was founded in 2006 and since then has transacted over $6 billion through its platform.  </p>
+                </section>
+                <h5>Business Value</h5>
+                <p>The business value in this analysis applies to an individual lender being able to best predict if a borrower will default on his or her loan.  If one can identify the best predictors, these can be used in the decision process of lenders to avoid (or at least minimize) risk in lending money through P2P platform.</p>
+
+                <h2>Methodology</h2>
+                <h5>Data Sources</h5>
+                <p>
+                    The dataset we used is from ‘Prosper Marketplace Inc.’, a California based peer-to-peer money lending and borrowing platform. Borrowers post a request with the loan amount and the purpose. Following this, lenders can choose to invest in the loan listing of their choice. </p>
+                <h5>Data Dictionary</h5>
+                <ul>
+                    <li>The dataset contains 113,937 records with 81 predictor variables.</li>
+                    <li>Target Variable is ‘Loan Default’. This has been recoded as a categorical variable where 1 indicates a defaulted loan and 0 indicates a non-defaulted loan.</li>
+                    <li>Removed features with greater than 50% missing data.</li>
+                    <li>After exploring the data, we assessed several needs for transformation and exclusion.</li>
+                    <li>Records with an invalid credit score i.e. less than 350 have been deleted (726 records).</li>
+                    <li>Numerous irrelevant and redundant features were eliminated to cut down the dataset to a sensible size for e.g., Credit Grade, Closed Date, Prosper Rating, Borrower Rate, Borrower APR, Prosper Score, Group Key, Data Credit Pulled, Credit Score Range Upper.</li>
+                </ul>
+    
+                <section>
+                    <h2>Data Cleaning</h2>
+
+                    <h5>Feature Engineering </h5>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Feature Engineering Process</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Loan Status</td>
+                                    <td>‘Cancelled’ and ‘Past Due’ have been deleted; ‘Charged Off’ records have been marked as ‘Defaulted’; ‘Current’, ‘Completed’, or ‘Final Payment in Progress’ have been marked as ‘Not Defaulted’</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of Inquiries in the last 6 months.</td>
+                                    <td>Converted to a Categorical Variable based on the number</td>
+                                </tr>
+                                <tr>
+                                    <td>Listing Creation Date and Term</td>
+                                    <td>Combined to create Seasonal Data i.e. Summer, Winter, Spring and Fall called ‘Listing Season’</td>
+                                </tr>
+                                <tr>
+                                    <td>Employment Status</td>
+                                    <td>Condensed the possible set of values by combining ‘Other’ and ‘Not Available’ as employed or not</td>
+                                </tr>
+                                <tr>
+                                    <td>Principal/Payment</td>
+                                    <td>Principal/Payment	Ratio of Loan Payment to Monthly Payment</td>
+                                </tr>
+                                <tr>
+                                    <td>Default % /Yield</td>
+                                    <td>Ratio of Default tendency % to Lender’s Yield</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <h5>Key Observations</h5>
+                        <ul>
+                            <li>Potential Target Leaks have been identified: <b>Delinquencies and Lender’s Yield</b></li>
+                            <li>Finally, some of the key criterion variables with potential high predictive value were retained: Principal to Payment Percent, Income Range, Debt to Income Ratio, Listing Season, Inquired Last 6 months?, Currently in Group?, Listing Category, Open Revolving Monthly Payment, Credit Score Range, Employment Status. </li>
+                        </ul>
+                        <h5>Data Exploration</h5>
+
+                        <img src="images/graph1.png" style="float: left; width: 40%; margin-left: 5%; margin-right: 15%; margin-bottom: 0.5em;">
+                        <img src="images/graph2.png" style="float: left; width: 28%; margin-right: 5%; margin-bottom: 0.5em;">
+
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Data Modelling</h2>
+                    <p>After cleaning up the data, following classification models have been built and executed by splitting the data in 80/20 ratio</p>
+                    <ul>
+                        <li><b>Boosted Decision Tree</b>: Models via an iterative process where the errors obtained in the previous tree are eliminated in the next tree to the extent possible. Hence, more accurate and refined prediction can be expected.</li>
+                        <li><b>Random Forest</b>: Models without considering error factor from the previous tree when creating the new tree. Due to this, model may not have the best predictive value.</li>
+                        <li><b>Logistic Regression</b>: Models based on the effect of the variables based on the dependent variables.</li>
+                        <li><b>Neural Network</b>: Models based on numeric coefficients and learning rate.</li>
+                        <li><b>Support Vector Machine</b>: Models via supervised learning algorithm and clustering.</li>
+
+                    </ul>
+                    <h2>Analysis</h2>
+                    <h4>Monetary Impact</h4>
+                    <ul>
+                        <li>Our analysis was aimed at understanding the monetary impact of the different predictions our models would make. This was necessary to ascertain the decisive metrics for evaluating model performance.</li>
+                        <li>We calculated average loans from our data to be approximately $11,000 and average lender yield was 18.2%. We used those figures while calculating model payoff.</li>
+                        <li>Impact of our predictions were tabulated as follows:</li>
+                    </ul>  
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th><b>Prediction Defaulted</b></th>
+                                    <th><b>Prediction Not Defaulted</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Actual Defaulted</b></td>
+                                    <td>$0</td>
+                                    <td>-$13,366</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Actual Not Defaulted</b></td>
+                                    <td>-$2,058</td>
+                                    <td>$2,058</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4>Modeling Approach</h4>
+                    <h5>Building Model/Feature selection:</h5>
+                    <ul>
+                        <li>After cleaning dataset to manageable size, we used ‘Permutation based Feature Importance’ and ‘Filter based Feature Selection’ (Chi square analysis) modules to get best predictor variables.</li>
+                        <li>We transformed and formatted the predictor variables using edit metadata module in to re-iterate their numerical incapability.</li>
+                        <li>After initial data exploration and running initial models, we determined that lender’s yield and number of delinquencies are potential target leaks for model and hence we removed the same from the final model.</li>
+                    </ul>
+
+                    <h5>Evaluation Metric</h5>
+                    <ul>
+                        <li>To evaluate model performance, we calculated payoff for each model and chose the model with maximum payoff. We also considered recall and AUC to gauge the model’s predictive value.</li>
+                        <li>Recall is a measure of how many true positives the model recalled (found).  We want to identify failed loans as a priority because these are the costliest (potential to lose principal + interest).</li>
+                        <li>Our analysis is based on binary classification (loan defaulted – yes or no?); a true positive means the accurately model predicted a default and the default indeed occurred.</li>
+                    </ul>
+
+                    <h5>Model Performance Improvement:</h5>
+                    <p>
+                        After initial iteration, we found that boosted decision trees were faring better as compared to other models. We then further improved its performance by incorporating the following techniques:</p>
+                    <ul>
+                        <li>We used ‘Tune Model Hyperparameters’ module to determine the optimum parameters for classification models.</li>
+                        <li>Since our data was heavily skewed towards non-delinquency, we used SMOTE to oversample delinquent records.</li> 
+                    </ul>
+
+                    <h5>Prosper Lending Predictive Model Performance Summary</h5>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><b>Model Type</b></th>
+                                    <th><b>Accuracy</b></th>
+                                    <th><b>Precision</b></th>
+                                    <th><b>AUC</b></th>
+                                    <th><b>Recall</b></th>
+                                    <th><b>F1 Score</b></th>
+                                    <th><b>Total Payoff</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Boosted Decision Tree</td>
+                                    <td>0.848</td>
+                                    <td>0.473</td>
+                                    <td>0.791</td>
+                                    <td>0.311</td>
+                                    <td>0.375</td>
+                                    <td>$12,727,606</td>
+                                </tr>
+                                <tr>
+                                    <td>Random Forest</td>
+                                    <td>0.859</td>
+                                    <td>0.731</td>
+                                    <td>0.826</td>
+                                    <td>0.105</td>
+                                    <td>0.184</td>
+                                    <td>$4,177,101</td>
+                                </tr>
+                                <tr>
+                                    <td>Logistic Regression</td>
+                                    <td>0.908</td>
+                                    <td>0.210</td>
+                                    <td>0.668</td>
+                                    <td>0.076</td>
+                                    <td>0.112</td>
+                                    <td>$3,250,273</td>
+                                </tr>
+                                <tr>
+                                    <td>Neural Network</td>
+                                    <td>0.895</td>
+                                    <td>0.224</td>
+                                    <td>0.662</td>
+                                    <td>0.155</td>
+                                    <td>0.183</td>
+                                    <td>$7,345,038</td>
+                                </tr>
+                                <tr>
+                                    <td>Support Vector Machine</td>
+                                    <td>0.911</td>
+                                    <td>0.153</td>
+                                    <td>0.657</td>
+                                    <td>0.037</td>
+                                    <td>0.060</td>
+                                    <td>$1,714,444</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h5>Top Predictors</h5>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><b>Predictor</b></th>
+                                    <th><b>Score</b></th>
+                                    <th><b>Description</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Credit Score</td>
+                                    <td>0.1523</td>
+                                    <td>Borrower’s credit score as reported by credit rating agency</td>
+                                </tr>
+                                <tr>
+                                    <td>Listing Category</td>
+                                    <td>0.0714</td>
+                                    <td>What type of loan is it? – Personal, Business, Student, etc.</td>
+                                </tr>
+                                <tr>
+                                    <td>InquiredLast6month?</td>
+                                    <td>0.0620</td>
+                                    <td>Has the lender inquired the borrower about loan repayment?</td>
+                                </tr>
+                                <tr>
+                                    <td>Employment Status</td>
+                                    <td>0.0597</td>
+                                    <td>Employment status of the borrower</td>
+                                </tr>
+                                <tr>
+                                    <td>OpenRevolvingMonthlyPayment</td>
+                                    <td>0.0245</td>
+                                    <td>Monthly payment on revolving accounts</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h5>Top Predictors Visualization</h5>
+                    <img src="images/graph3.png" style="float: left; width: 40%; margin-left: 5%; margin-right: 10%; margin-bottom: 0.5em;">
+                    <img src="images/graph4.png" style="float: left; width: 40%; margin-right: 5%; margin-bottom: 0.5em;">
+                    <img src="images/graph5.png" style="float: left; width: 40%; margin-left: 5%; margin-right: 10%; margin-bottom: 0.5em;">
+                    <img src="images/graph6.png" style="float: left; width: 40%; margin-right: 5%; margin-bottom: 3em;">
+                    </section>
+                    
+                <footer id="footer">
+                    <ul class="icons">
+                        <li><a href="https://www.facebook.com/manoj.wajekar" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                        <li><a href="https://www.linkedin.com/in/manojwajekar/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+                        <li><a href="#" class="icon fa-github"><span class="label">Linkedin</span></a></li>
+                        <li><a href="https://www.instagram.com/manojwajekar/" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                    </ul>
+                </footer>
+            </div>
+    </body>
+</html>
